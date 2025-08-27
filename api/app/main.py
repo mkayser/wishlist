@@ -10,7 +10,7 @@ DATABASE_URL = os.getenv(
 )
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 
-app = FastAPI(title="Wishlist API")
+app = FastAPI(title="Wishlist API", openapi_url="/api/openapi.json")
 
 # allow frontend during dev
 app.add_middleware(
@@ -19,7 +19,7 @@ app.add_middleware(
     allow_methods=["*"], allow_headers=["*"],
 )
 
-@app.get("/health")
+@app.get("/api/health")
 def health():
     try:
         with engine.connect() as conn:
